@@ -65,7 +65,7 @@ void ofxTLTicker::draw(){
 		refreshTickMarks();
 	}
 	
-	tickerMarks.setStrokeColor( ofColor(200, 180, 40) );
+	tickerMarks.setStrokeColor(timeline->getColors().outlineColor);
 	tickerMarks.setStrokeWidth(1);
 	tickerMarks.draw(0, bounds.y);
 		
@@ -148,7 +148,7 @@ void ofxTLTicker::draw(){
 	ofDrawLine(currentFrameX, totalDrawRect.y, currentFrameX, totalDrawRect.y+totalDrawRect.height);
 	//draw bounds 
 	ofNoFill();
-	ofSetColor(200, 180, 40);
+	ofSetColor(timeline->getColors().outlineColor);
 	ofDrawRectangle(bounds);
 		
 	ofPopStyle();
