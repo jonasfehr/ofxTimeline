@@ -2130,7 +2130,7 @@ void ofxTimeline::bringTrackToBottom(ofxTLTrack* track){
 void ofxTimeline::removeTrack(string name){
     ofxTLTrack* track = getTrack(name);
     if(track == NULL){
-        ofLogError() << "ofxTimeline::removeTrack -- Could not find track " << name << " to remove " << endl;
+        ofLogError(__FUNCTION__) << "Could not find track " << name << " to remove";
         return;
 	}
     if(track == modalTrack){
@@ -2145,7 +2145,7 @@ void ofxTimeline::removeTrack(string name){
         for(int q = undoStack[i].size()-1; q >= 0; q--){
 			if(undoStack[i][q].track == track){
                 undoStack[i].erase(undoStack[i].begin() + q);
-                cout << "temporary fix -- deleting undo queue element for track " << track->getName() << endl;
+                //cout << "temporary fix -- deleting undo queue element for track " << track->getName() << endl;
             }
         }
     }
