@@ -1,4 +1,5 @@
 ofxMSATimer
+ofxPoco
 ofxRange
 ofxTextInputField
 ofxTimecode

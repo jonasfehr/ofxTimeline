@@ -17,9 +17,6 @@ void ofApp::setup(){
 	
 	ofEnableSmoothing();
 	ofEnableAlphaBlending();
-
-	//lets you use COMMAND+C and COMMAND+V actions on mac
-	ofxTimeline::removeCocoaMenusFromGlut("Empty Templates");
 	
 	timeline.setup();
 	timeline.setLoopType(OF_LOOP_NORMAL);

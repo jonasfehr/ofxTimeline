@@ -36,10 +36,7 @@ void ofApp::setup(){
 	
     ofBackground(0);
     ofEnableSmoothing();
-    ofEnableAlphaBlending();
-	
-
-    ofxTimeline::removeCocoaMenusFromGlut("Audio Waveform Example");
+    ofEnableAlphaBlending();	
     
     timeline.setup();
     timeline.setLoopType(OF_LOOP_NORMAL);

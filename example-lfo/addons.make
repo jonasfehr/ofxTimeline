@@ -5,3 +5,4 @@ ofxTimecode
 ofxTimeline
 ofxTween
 ofxXmlSettings
+ofxPoco

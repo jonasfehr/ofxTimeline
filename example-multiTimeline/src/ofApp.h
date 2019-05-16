@@ -1,17 +1,16 @@
 /**
- * LFO example
+ * Multi timeline exmaple
  * ofxTimeline
  *
- * simple example for low frequency oscillator track
+ * Examples of how to create simple interactions between multiple timelines
  */
 
 #pragma once
 
 #include "ofMain.h"
 #include "ofxTimeline.h"
-#include "ofxTLLFO.h"
 
-class testApp : public ofBaseApp{
+class ofApp : public ofBaseApp{
 
   public:
 	void setup();
@@ -27,5 +26,12 @@ class testApp : public ofBaseApp{
 	void windowResized(int w, int h);
 	void dragEvent(ofDragInfo dragInfo);
 	void gotMessage(ofMessage msg);
-	
-	ofxTimeline timeline;};
+    
+	ofxTimeline timeline;
+    
+    vector<ofxTimeline*> sublines;
+    
+    void bangFired(ofxTLBangEventArgs& bang);
+    
+};
+ 
