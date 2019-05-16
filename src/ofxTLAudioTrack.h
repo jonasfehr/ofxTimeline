@@ -32,6 +32,8 @@
 
 #pragma once
 
+#define TIMELINE_AUDIO_INCLUDED
+
 #ifdef TIMELINE_AUDIO_INCLUDED
 
 #include "ofMain.h"
@@ -118,7 +120,7 @@ class ofxTLAudioTrack : public ofxTLTrack
 	float lastPercent;
     
 //	virtual void update(ofEventArgs& args);
-	ofOpenALSoundPlayer_TimelineAdditions player;
+    ofOpenALSoundPlayer_TimelineAdditions player;
 	ofRange computedZoomBounds;
 	float maxBinReceived;
     float dampening;

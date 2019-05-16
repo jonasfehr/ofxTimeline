@@ -43,11 +43,13 @@ ipch/
 .DS_Store
 
 #linux files
+*.user
 *modex.so
 *modexp64.so
 */*/*.tags
 */bin/timelineExample
 example-allTracks/bin/example-allTracks_debug
+*_debug
 
 example-videoRenderer/bin/data/renders/
 oldExamples/

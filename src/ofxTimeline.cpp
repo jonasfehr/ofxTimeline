@@ -545,17 +545,6 @@ void ofxTimeline::play(){
 	}
 }
 
-static bool menusRemoved = false;
-void ofxTimeline::removeCocoaMenusFromGlut(string appName){
-
-	#ifdef TARGET_OSX
-	if(!menusRemoved){
-		RemoveCocoaMenusFromGlut(appName);
-		menusRemoved = true;
-	}
-	#endif
-}
-
 void ofxTimeline::stop(){
 
     if(!isEnabled){
@@ -2070,8 +2059,8 @@ ofPtr<ofVideoPlayer> ofxTimeline::getVideoPlayer(string videoTrackName){
 #endif
 
 #ifdef TIMELINE_AUDIO_INCLUDED
-ofxTLAudioTrack* ofxTimeline::addAudioTrack(string trackName){
-    return addAudioTrack(trackName, "");
+ofxTLAudioTrack* ofxTimeline::addAudioTrack(string audioPath){
+    return addAudioTrack("audio", audioPath);
 }
 
 ofxTLAudioTrack* ofxTimeline::addAudioTrackWithPath(string audioPath){

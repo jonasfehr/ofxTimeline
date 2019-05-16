@@ -31,8 +31,9 @@
  */
 
 #pragma once 
-#include "ofxTLKeyframes.h"
+
 #include "ofxTextInputField.h"
+#include "ofxTLKeyframes.h"
 
 class ofxTLSwitch : public ofxTLKeyframe {
   public:

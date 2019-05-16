@@ -3,7 +3,7 @@ meta:
 	ADDON_DESCRIPTION = ofxTimeline is a simple to use openFrameworks add on for creating a user interface to an editable timeline.
 	ADDON_AUTHOR = James George
 	ADDON_TAGS = time timeline curves keyframes
-	ADDON_URL = http://github.com/obviousjim/ofxTimeline
+	ADDON_URL = http://github.com/pierrep/ofxTimeline
 
 common:
 	# dependencies with other addons, a list of them separated by spaces 
@@ -14,6 +14,7 @@ common:
 	ADDON_DEPENDENCIES += ofxMSATimer
 	ADDON_DEPENDENCIES += ofxTimecode
 	ADDON_DEPENDENCIES += ofxTextInputField
+	ADDON_DEPENDENCIES += ofxPoco
 	
 	# include search paths, this will be usually parsed from the file system
 	# but if the addon or addon libraries need special search paths they can be
@@ -53,27 +54,27 @@ linux64:
 	# when parsing the file system looking for libraries exclude this for all or 
 	# a specific platform
 	ADDON_LIBS_EXCLUDE = libs/kiss
-	ADDON_LIBS_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions
-	ADDON_SOURCES_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions/%
-	ADDON_INCLUDES_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions/%
+	#ADDON_LIBS_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions
+	#ADDON_SOURCES_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions/%
+	#ADDON_INCLUDES_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions/%
 	
 linux:
 	ADDON_LIBS_EXCLUDE = libs/kiss
-	ADDON_LIBS_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions
-	ADDON_SOURCES_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions/%
-	ADDON_INCLUDES_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions/%
+	#ADDON_LIBS_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions
+	#ADDON_SOURCES_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions/%
+	#ADDON_INCLUDES_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions/%
 	
 linuxarmv6l:
 	ADDON_LIBS_EXCLUDE = libs/kiss
-	ADDON_LIBS_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions
-	ADDON_SOURCES_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions/%
-	ADDON_INCLUDES_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions/%
+	#ADDON_LIBS_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions
+	#ADDON_SOURCES_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions/%
+	#ADDON_INCLUDES_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions/%
 	
 linuxarmv7l:
 	ADDON_LIBS_EXCLUDE = libs/kiss
-	ADDON_LIBS_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions
-	ADDON_SOURCES_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions/%
-	ADDON_INCLUDES_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions/%
+	#ADDON_LIBS_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions
+	#ADDON_SOURCES_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions/%
+	#ADDON_INCLUDES_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions/%
 	
 osx:
 vs:

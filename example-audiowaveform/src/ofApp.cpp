@@ -36,10 +36,6 @@ void ofApp::setup(){
 	
     ofBackground(0);
     ofEnableSmoothing();
-    ofEnableAlphaBlending();
-	
-
-    ofxTimeline::removeCocoaMenusFromGlut("Audio Waveform Example");
     
     timeline.setup();
     timeline.setLoopType(OF_LOOP_NORMAL);
@@ -52,8 +48,8 @@ void ofApp::setup(){
     timeline.setTimecontrolTrack("Audio");
 
     //fun to watch on FFT
-    //waveform.loadSoundfile("audiocheck.net_sweep20-20klog.wav");
-    //waveform.loadSoundfile("audiocheck.net_sweep20-20klin.wav");
+    //timeline.addAudioTrackWithPath("audiocheck.net_sweep20-20klog.wav");
+    //timeline.addAudioTrackWithPath("audiocheck.net_sweep20-20klin.wav");
 
     timeline.setDurationInSeconds(timeline.getAudioTrack("Audio")->getDuration());
 
@@ -71,7 +67,7 @@ void ofApp::draw(){
 
     ofxTLAudioTrack* track = timeline.getAudioTrack("Audio");
     int bin = ofMap(mouseX, 0, ofGetWidth(), 0, track->getFFTSize()-1, true);
-    ofBackground( track->getFFT()[bin] * 2000 );
+    //ofBackground( track->getFFT()[bin] * 2000 );
     
     timeline.draw();
 }

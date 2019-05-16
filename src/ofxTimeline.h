@@ -34,8 +34,6 @@
 
 #include "ofMain.h"
 
-#define TIMELINE_VIDEO_INCLUDED
-
 //For lack of a type abstraction, this let's you #define a font renderer before including ofxTimeline
 //(like ofxFTGL or ofxFont)
 //to use ofxFTGL use somethinglike this:
@@ -71,14 +69,8 @@
 #include "ofxTLCameraTrack.h"
 #include "ofxTLColors.h"
 #include "ofxTLLFO.h"
-
-#ifdef TIMELINE_VIDEO_INCLUDED
 #include "ofxTLVideoTrack.h"
-#endif
-
-#ifdef TIMELINE_AUDIO_INCLUDED
 #include "ofxTLAudioTrack.h"
-#endif
 
 
 typedef struct {
@@ -88,10 +80,6 @@ typedef struct {
 
 class ofxTimeline : ofThread {
   public:
-	
-	//needed for hotkeys to work
-	//optionally pass in an "app name" for Quit.
-	static void removeCocoaMenusFromGlut(string appName);
 	
 	ofxTimeline();
 	virtual ~ofxTimeline();

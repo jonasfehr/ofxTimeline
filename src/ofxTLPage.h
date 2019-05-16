@@ -44,6 +44,7 @@
 
 class ofxTimeline;
 class ofxTLTicker;
+
 class ofxTLPage {
   public:
 	

@@ -50,14 +50,14 @@ class ofxTLTrack
 	virtual void setup();
     void _draw(); //calls draw() internally plus some universal stuff
     //override this in your sublcass
-	virtual void update(){};
-	virtual void draw(){};
+    virtual void update(){}
+    virtual void draw(){}
 
     //draw modal content is called after the main draw() call
     //override this if you want to draw content that can show up on top of other timelines
 	//useful in conjunction with timeline->presentedModalContent(this)
     //for showing big controls, ie the tweener window
-	virtual void drawModalContent(){};
+    virtual void drawModalContent(){}
 
 	virtual void enable();
 	virtual void disable();
@@ -96,16 +96,16 @@ class ofxTLTrack
 	//for instance, selecting a keyframe
     virtual bool mousePressed(ofMouseEventArgs& args, long millis){return false;}
 	virtual void mouseMoved(ofMouseEventArgs& args, long millis){}
-    virtual void mouseDragged(ofMouseEventArgs& args, long millis){};
-	virtual void mouseReleased(ofMouseEventArgs& args, long mllis){};
+    virtual void mouseDragged(ofMouseEventArgs& args, long millis){}
+    virtual void mouseReleased(ofMouseEventArgs& args, long mllis){}
 
 	//if you override playbackStarted() you have to call super ofxTLTrack's method as well
     virtual void playbackStarted(ofxTLPlaybackEventArgs& args);
-	virtual void playbackLooped(ofxTLPlaybackEventArgs& args){};
-	virtual void playbackEnded(ofxTLPlaybackEventArgs& args){};
+    virtual void playbackLooped(ofxTLPlaybackEventArgs& args){}
+    virtual void playbackEnded(ofxTLPlaybackEventArgs& args){}
 
-	virtual void keyPressed(ofKeyEventArgs& args){};
-	virtual void nudgeBy(ofVec2f nudgePercent){};
+    virtual void keyPressed(ofKeyEventArgs& args){}
+    virtual void nudgeBy(ofVec2f nudgePercent){}
 
     //Triggered by the page object based on user interaction, Only calls when the focus actually changes
     virtual void gainedFocus();
@@ -115,21 +115,21 @@ class ofxTLTrack
     //it passes normalized 0-1 ranges for time (x) and value (y)
     //It's the responsability of the ofxTLTrack to respond appropriately
     //and select the relevant elements under the track
-    virtual void regionSelected(ofLongRange timeRange, ofRange valueRange){};
+    virtual void regionSelected(ofLongRange timeRange, ofRange valueRange){}
 
 	//copy+paste
-	virtual string copyRequest(){return "";};
-	virtual string cutRequest(){return "";};
-	virtual void pasteSent(string pasteboard){};
-	virtual void selectAll(){};
-	virtual void unselectAll(){};
+    virtual string copyRequest(){return "";}
+    virtual string cutRequest(){return "";}
+    virtual void pasteSent(string pasteboard){}
+    virtual void selectAll(){}
+    virtual void unselectAll(){}
 
 	//returns the bounds at which something interesting happens on this track
 	//used for finding min/max times on a timeline
-	virtual unsigned long long getEarliestTime(){ return LONG_MAX; };
-	virtual unsigned long long getLatestTime(){ return 0; };
-	virtual unsigned long long getEarliestSelectedTime(){ return LONG_MAX; };
-	virtual unsigned long long getLatestSelectedTime(){ return 0; };
+    virtual unsigned long long getEarliestTime(){ return LONG_MAX; }
+    virtual unsigned long long getLatestTime(){ return 0; }
+    virtual unsigned long long getEarliestSelectedTime(){ return LONG_MAX; }
+    virtual unsigned long long getLatestSelectedTime(){ return 0; }
 
     //returns the number of selected items
     //this used to determine two things:
@@ -138,11 +138,11 @@ class ofxTLTrack
     //otherwise they'll create a new value on that track
     //2 Can this track be modified by the current event? If there are selected items
     //the this track's state will be stored in the undo buffer.
-    virtual int getSelectedItemCount(){ return 0; };
+    virtual int getSelectedItemCount(){ return 0; }
 
     //undo
-    virtual string getXMLRepresentation(){return "";};
-    virtual void loadFromXMLRepresentation(string rep){};
+    virtual string getXMLRepresentation(){return "";}
+    virtual void loadFromXMLRepresentation(string rep){}
 
 	//zoom events
 	virtual void zoomStarted(ofxTLZoomEventArgs& args);
@@ -151,12 +151,12 @@ class ofxTLTrack
     //managed by the zoom call backs and initialized by the Page upon creation
 	void setZoomBounds(ofRange zoomBoundsPercent);
 
-	virtual void save(){};
-	virtual void load(){};
-	virtual void clear(){};
+    virtual void save(){}
+    virtual void load(){}
+    virtual void clear(){}
 
 	//add any points (in screenspace x) that should be snapped to
-	virtual void getSnappingPoints(std::set<unsigned long long>& points){};
+    virtual void getSnappingPoints(std::set<unsigned long long>& points){}
 
 	ofxTimeline* getTimeline();
 	//set by the timeline it's self, no need to call this yourself
@@ -201,7 +201,7 @@ class ofxTLTrack
 	virtual float screenXForTime(float time, float durationInSeconds);
 	virtual float timeForScreenX(float screenX, float durationInSeconds);
 
-	virtual void drawRectChanged(){};
+    virtual void drawRectChanged(){}
 
 	bool hover; //mouse is over the element
     bool active; //mouse is clicking on the element
