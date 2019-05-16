@@ -48,7 +48,7 @@ void ofApp::setup(){
     }
     
     //load our display font
-    font.loadFont("GUI/NewMedia Fett.ttf", 15, true, true);
+    font.load("GUI/NewMedia Fett.ttf", 15, true, true);
 	font.setLineHeight(34.0f);
 	font.setLetterSpacing(1.035);
 
@@ -97,7 +97,7 @@ void ofApp::draw(){
         ofPushStyle();
         ofNoFill();
         ofSetColor(timeline.getColors().keyColor);
-        ofRect(outputRectangle);
+        ofDrawRectangle(outputRectangle);
         string instructions = "Drag & Drop a Video file";
         float width = font.getStringBoundingBox("Drag & Drop a Video file or press load video", 0, 0).width;
         font.drawString(instructions, outputRectangle.x+outputRectangle.width/2 - width/2, outputRectangle.y + outputRectangle.height/2);
@@ -110,14 +110,14 @@ void ofApp::draw(){
     
     ofPushStyle();
 	ofNoFill();
-    ofRect(loadVideoButton);
+    ofDrawRectangle(loadVideoButton);
     if(loaded){
 	    string renderString = rendering ? ("Cancel Render : " + ofToString(currentRenderFrame - timeline.getInFrame()) + "/" + ofToString(timeline.getOutFrame()-timeline.getInFrame()))  : "Start Render";
 	    font.drawString(renderString, renderButton.x + 10, renderButton.y + renderButton.height*.75);
     }else{
     	font.drawString("load video", renderButton.x + 10, renderButton.y + renderButton.height*.75);
     }
-    ofRect(renderButton);
+    ofDrawRectangle(renderButton);
     ofPopStyle();
     
 	timeline.draw();    
@@ -179,14 +179,15 @@ void ofApp::renderCurrentFrame(){
     colorControl.end();
 	frameBuffer.end();
     
+    frameBuffer.draw(0,0);
     cout << "RENDERING -- Target Current Frame: " << currentRenderFrame << " start frame " << startFrame << " video frame (+1) " << videoFrameToRender << " video reports time " << timeToSetTimeline << " timeline difference " << (timeToSetTimeline - timeline.getCurrentTime()) << " frame " << timeline.getCurrentFrame() << endl;
     
     //save the image to file and update to the next frame
     ofImage saveImage;
-    frameBuffer.readToPixels(saveImage.getPixelsRef());
+    frameBuffer.readToPixels(saveImage.getPixels());
     char filename[1024];
     sprintf(filename, "%s/frame_%05d.png",renderFolder.c_str(),currentRenderFrame);
-    saveImage.saveImage(filename);
+    saveImage.save(filename);
     currentRenderFrame++;
     if(currentRenderFrame > timeline.getOutFrame()){
         rendering = false;
