@@ -42,10 +42,7 @@ void ofApp::setup(){
 	ofEnableLighting();
 	
 	light.setPosition(ofGetWidth()*.5, ofGetHeight()*.25, 0);
-	light.enable();
-		
-    //Timeline setup and playback details
-    ofxTimeline::removeCocoaMenusFromGlut("CurvesColorsDemo");
+	light.enable();		
     
 	timeline.setup();
     timeline.setFrameRate(30);
@@ -87,10 +84,10 @@ void ofApp::draw(){
 	ofTranslate(ofGetWidth()*.5, ofGetHeight()*.66, 40);
     
     //Read the values out of the timeline and use them to change the viewport rotation
-	ofRotate(timeline.getValue("Rotate X"), 1, 0, 0);
-	ofRotate(timeline.getValue("Rotate Y"), 0, 1, 0);
+    ofRotateDeg(timeline.getValue("Rotate X"), 1, 0, 0);
+    ofRotateDeg(timeline.getValue("Rotate Y"), 0, 1, 0);
 	
-	ofBox(0,0,0, 200);
+    ofDrawBox(0,0,0, 200);
 	
 	ofPopMatrix();
 
