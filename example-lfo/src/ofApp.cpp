@@ -14,11 +14,7 @@ void ofApp::setup(){
 	ofSetFrameRate(30);
 	ofSetVerticalSync(true);
 	
-	ofEnableSmoothing();
-	ofEnableAlphaBlending();
-
-	//on mac lets you use COMMAND+C and COMMAND+V actions
-	ofxTimeline::removeCocoaMenusFromGlut("Empty Templates");
+    ofEnableSmoothing();
 	
 	timeline.setup();
 	timeline.setLoopType(OF_LOOP_NORMAL);
