@@ -1,3 +1,12 @@
+# Updates to this Fork #
+This fork has been updated to OF 0.10.1
+
+Tested only on Linux for the time being. QtCreator projects have been added to most of the examples.
+
+The Audioplayer track has been re-instated. The *ofOpenALSoundPlayer_Timeline* class is an updated copy of the regular OF OpenAL sound player, except with most of its private members made protected in order to subclass it in *ofOpenALSoundPlayer_TimelineAdditions* which now only contains the code necessary to this addon.
+
+All examples should work except for the library ones. The *example-videoRenderer* example has a broken shader, so only mostly works.
+
 # ofxTimeline #
 ![Timeline](http://www.jamesgeorge.org/images/ofxtimeline/github/Header.png)
 
