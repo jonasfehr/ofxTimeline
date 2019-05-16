@@ -152,7 +152,7 @@ void ofxTLColorTrack::drawModalContent(){
 		}
 		colorPallete.draw(colorWindow);
 
-		ofVec2f selectionPoint = colorWindow.getMin() + selectedSample->samplePoint * ofVec2f(colorWindow.width,colorWindow.height);
+        glm::vec2 selectionPoint = colorWindow.getMin() + selectedSample->samplePoint * glm::vec2(colorWindow.width,colorWindow.height);
 		ofSetColor(selectedSample->color.getInverted());
 		ofDrawLine(selectionPoint - ofVec2f(8,0), selectionPoint + ofVec2f(8,0));
 		ofDrawLine(selectionPoint - ofVec2f(0,8), selectionPoint + ofVec2f(0,8));
@@ -241,7 +241,7 @@ ofColor ofxTLColorTrack::getColorAtMillis(unsigned long long millis){
 			ofxTLColorSample* startSample = (ofxTLColorSample*)keyframes[i-1];
 			ofxTLColorSample* endSample = (ofxTLColorSample*)keyframes[i];
 			float interpolationPosition = ofMap(millis, startSample->time, endSample->time, 0.0, 1.0);
-			return samplePaletteAtPosition(startSample->samplePoint.getInterpolated(endSample->samplePoint, interpolationPosition));
+            return samplePaletteAtPosition(glm::mix(startSample->samplePoint,endSample->samplePoint, interpolationPosition));
 		}
 	}
 	ofLogError("ofxTLColorTrack::getColorAtMillis") << "Could not find color for millis " << millis << endl;
@@ -457,9 +457,9 @@ void ofxTLColorTrack::refreshSample(ofxTLColorSample* sample){
 }
 
 //assumes normalized position
-ofColor ofxTLColorTrack::samplePaletteAtPosition(ofVec2f position){
+ofColor ofxTLColorTrack::samplePaletteAtPosition(glm::vec2 position){
 	if(colorPallete.isAllocated()){
-		ofVec2f positionPixelSpace = position * ofVec2f(colorPallete.getWidth(),colorPallete.getHeight());
+        ofVec2f positionPixelSpace = position * glm::vec2(colorPallete.getWidth(),colorPallete.getHeight());
 		//bilinear interpolation from http://www.gamedev.net/page/resources/_/technical/graphics-programming-and-theory/bilinear-interpolation-of-texture-maps-r810
 		int x0 = int(positionPixelSpace.x);
 		int y0 = int(positionPixelSpace.y);

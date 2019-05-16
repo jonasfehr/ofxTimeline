@@ -32,6 +32,8 @@
 
 #pragma once
 
+#define TIMELINE_VIDEO_INCLUDED
+
 #ifdef TIMELINE_VIDEO_INCLUDED
 
 #include "ofMain.h"

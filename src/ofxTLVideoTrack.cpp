@@ -29,11 +29,10 @@
  * OTHER DEALINGS IN THE SOFTWARE.
  *
  */
-
-#ifdef TIMELINE_VIDEO_INCLUDED
-
 #include "ofxTLVideoTrack.h"
 #include "ofxTimeline.h"
+
+#ifdef TIMELINE_VIDEO_INCLUDED
 
   ofxTLVideoTrack::ofxTLVideoTrack() 
 : ofxTLImageTrack()
@@ -302,7 +301,7 @@ void ofxTLVideoTrack::threadedFunction(){
             }
 
             backThumbs[i].useTexture = false;
-            backThumbs[i].create(backthreadedPlayer->getPixelsRef());
+            backThumbs[i].create(backthreadedPlayer->getPixels());
           }
 
           lock();

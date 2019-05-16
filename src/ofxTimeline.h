@@ -34,6 +34,8 @@
 
 #include "ofMain.h"
 
+#define TIMELINE_VIDEO_INCLUDED
+
 //For lack of a type abstraction, this let's you #define a font renderer before including ofxTimeline
 //(like ofxFTGL or ofxFont)
 //to use ofxFTGL use somethinglike this:

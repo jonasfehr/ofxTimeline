@@ -47,6 +47,7 @@ ipch/
 *modexp64.so
 */*/*.tags
 */bin/timelineExample
+example-allTracks/bin/example-allTracks_debug
 
 example-videoRenderer/bin/data/renders/
 oldExamples/
