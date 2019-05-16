@@ -17,9 +17,6 @@ void ofApp::setup(){
 
 	ofEnableSmoothing();
 	ofEnableAlphaBlending();
-
-	//lets you use COMMAND+C and COMMAND+V actions on mac
-	ofxTimeline::removeCocoaMenusFromGlut("Camera Track");
 	
 	timeline.setup();
 	timeline.setLoopType(OF_LOOP_NORMAL);
@@ -34,15 +31,14 @@ void ofApp::setup(){
 	
 	for(int y = -1000; y < 1000; y += 2){
 		boxes.push_back(ofVec3f(cos(y/10.0)*abs(y), y, sin(y/10.0)*abs(y)));
-	}
-			
+	}			
 	
 	for(int i = 0; i < 10000; i++){
 		particles.addVertex(ofVec3f(ofRandom(-2000,2000),
 									ofRandom(-2000,2000),
 									ofRandom(-2000,2000)));
 							
-		particles.addColor(ofFloatColor(ofRandomuf()*.4));
+        particles.addColor(ofFloatColor(ofRandomuf()));
 	}
 
 }
@@ -54,21 +50,17 @@ void ofApp::update(){
 
 //--------------------------------------------------------------
 void ofApp::draw(){
-	ofBackgroundGradient(ofColor(255*.15), ofColor::black, OF_GRADIENT_CIRCULAR);
-
-	ofEnableSmoothing();
-	glEnable(GL_POINT_SMOOTH);
-	glPointSize(.5);
+	ofBackgroundGradient(ofColor(255*.15), ofColor::black, OF_GRADIENT_CIRCULAR);	
 	
 	cam.begin();
-	for(int i = 0; i < boxes.size(); i++){
-		ofSetColor( ofColor::yellowGreen.getLerped(ofColor::blueViolet, 1.0*i/boxes.size()) );
-		ofPushMatrix();
-		ofRotate(ofGetFrameNum()*i/100.0, 0, 1, 0);
-		ofBox(boxes[i], 5);
-		ofPopMatrix();
-	}
-	particles.drawVertices();
+    for(int i = 0; i < boxes.size(); i++){
+        ofSetColor( ofColor::yellowGreen.getLerped(ofColor::blueViolet, 1.0*i/boxes.size()) );
+        ofPushMatrix();
+        ofRotateDeg(ofGetFrameNum()*i/100.0, 0, 1, 0);
+        ofDrawBox(boxes[i], 5);
+        ofPopMatrix();
+    }
+    particles.drawVertices();
 	cam.end();
 	
 	timeline.draw();
