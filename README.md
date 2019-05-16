@@ -1,4 +1,4 @@
-# Updates to this Fork #
+## Updates to this Fork ##
 This fork has been updated to OF 0.10.1
 
 Tested only on Linux for the time being. QtCreator projects have been added to most of the examples.
@@ -20,7 +20,7 @@ Copyright 2011-2014 [James George](http://www.jamesgeorge.org) co-developed by [
 
 Licensed under the [Apache License](http://www.apache.org/licenses/LICENSE-2.0)
 
-## Philosophy of Reusable Tools##
+## Philosophy of Reusable Tools ##
 
 ofxTimeline is part of my reserach into how creating GUI based tools within creative coding environments can open up new ways of creating and interacting with media.
 
