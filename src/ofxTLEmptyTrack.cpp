@@ -85,6 +85,8 @@ void ofxTLEmptyTrack::draw(){
 			ofDrawCircle(screenX, screenY, 4);
 		}
 	}
+
+    ofPopStyle();
 }
 
 //caled by the timeline, don't need to register events
