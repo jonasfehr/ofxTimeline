@@ -35,9 +35,6 @@ void ofApp::setup(){
     
     //initialize the shader
     colorControl.load("shaders/colorcontrol");
-    colorControl.begin();
-    colorControl.setUniform1i("tex", 0);
-    colorControl.end();
     
     //load the last video 
 	if(settings.loadFile("settings.xml")){
@@ -51,13 +48,11 @@ void ofApp::setup(){
     font.load("GUI/NewMedia Fett.ttf", 15, true, true);
 	font.setLineHeight(34.0f);
 	font.setLetterSpacing(1.035);
-
 }
 
 //--------------------------------------------------------------
 void ofApp::update(){
     
-    //update views
     if(!loaded){
         contentRectangle = ofRectangle(0,0, 16, 9); 
     }
@@ -74,24 +69,22 @@ void ofApp::update(){
     outputRectangle.x =  ofGetWidth()/2 - outputRectangle.width/2;
     outputRectangle.y = timeline.getBottomLeft().y;
     
-    //loadVideoButton = ofRectangle(0, 0, ofGetWidth()/2, BUTTON_HEIGHT);
-    renderButton = ofRectangle(outputRectangle.x, outputRectangle.y+outputRectangle.height, outputRectangle.width, BUTTON_HEIGHT-1);
-    
+    renderButton = ofRectangle(outputRectangle.x, outputRectangle.y+outputRectangle.height, outputRectangle.width, BUTTON_HEIGHT-1);  
 }
 
 //--------------------------------------------------------------
 void ofApp::draw(){
 	
-	ofBackground(.15*255); //pro apps background color
+    ofBackground(.15*255); //pro apps background color
 
     if(loaded){
-		colorControl.begin();
+        colorControl.begin();
         colorControl.setUniform1f("brightness", timeline.getValue("brightness"));
         colorControl.setUniform1f("contrast", timeline.getValue("contrast"));
         colorControl.setUniform1f("saturation", timeline.getValue("saturation"));
         colorControl.setUniform1i("invert", (timeline.isSwitchOn("invert") ? 1 : 0) );
-    	timeline.getVideoPlayer("Video")->draw(outputRectangle);        
-		colorControl.end();
+        timeline.getVideoPlayer("Video")->draw(outputRectangle);
+        colorControl.end();
     }
     else{
         ofPushStyle();
@@ -104,23 +97,26 @@ void ofApp::draw(){
         ofPopStyle();
     }
     
-    if(rendering){
+    if(rendering)
+    {
         renderCurrentFrame();
     }
     
     ofPushStyle();
-	ofNoFill();
+    ofNoFill();
     ofDrawRectangle(loadVideoButton);
     if(loaded){
-	    string renderString = rendering ? ("Cancel Render : " + ofToString(currentRenderFrame - timeline.getInFrame()) + "/" + ofToString(timeline.getOutFrame()-timeline.getInFrame()))  : "Start Render";
-	    font.drawString(renderString, renderButton.x + 10, renderButton.y + renderButton.height*.75);
+        string renderString = rendering ? ("Cancel Render : " + ofToString(currentRenderFrame - timeline.getInFrame()) + "/" + ofToString(timeline.getOutFrame()-timeline.getInFrame()))  : "Start Render";
+        font.drawString(renderString, renderButton.x + 10, renderButton.y + renderButton.height*.75);
     }else{
-    	font.drawString("load video", renderButton.x + 10, renderButton.y + renderButton.height*.75);
+        font.drawString("load video", renderButton.x + 10, renderButton.y + renderButton.height*.75);
     }
     ofDrawRectangle(renderButton);
     ofPopStyle();
     
-	timeline.draw();    
+
+    timeline.draw();
+
 }
 
 //--------------------------------------------------------------
@@ -137,7 +133,7 @@ void ofApp::loadVideo(string videoPath){
 
     if(loaded){
         contentRectangle = ofRectangle(0,0, videoTrack->getPlayer()->getWidth(), videoTrack->getPlayer()->getHeight());
-        frameBuffer.allocate(contentRectangle.width, contentRectangle.height, GL_RGB);
+        frameBuffer.allocate(contentRectangle.width, contentRectangle.height, GL_RGBA);
         
         //timeline.clear();
         //At the moment with video and audio tracks
@@ -165,11 +161,11 @@ void ofApp::renderCurrentFrame(){
     timeline.getVideoPlayer("Video")->update();
     int videoFrameToRender = timeline.getVideoPlayer("Video")->getCurrentFrame();
     float timeToSetTimeline = timeline.getVideoPlayer("Video")->getPosition() * timeline.getVideoPlayer("Video")->getDuration();
-    timeline.setCurrentFrame(videoFrameToRender);
-    
+    // timeline.setCurrentFrame(videoFrameToRender); <-- adding this line kills the shader on Linux, no idea why. It doesn't seem critical anyway
+
     //draw the video with the shader into the frame buffer
     frameBuffer.begin();
-    ofClear(0,0,0);
+    ofClear(0,0,0,255);
     colorControl.begin();
     colorControl.setUniform1f("brightness", timeline.getValue("brightness"));
     colorControl.setUniform1f("contrast", timeline.getValue("contrast"));
@@ -180,7 +176,8 @@ void ofApp::renderCurrentFrame(){
 	frameBuffer.end();
     
     frameBuffer.draw(0,0);
-    cout << "RENDERING -- Target Current Frame: " << currentRenderFrame << " start frame " << startFrame << " video frame (+1) " << videoFrameToRender << " video reports time " << timeToSetTimeline << " timeline difference " << (timeToSetTimeline - timeline.getCurrentTime()) << " frame " << timeline.getCurrentFrame() << endl;
+
+    ofLogVerbose() << "RENDERING -- Target Current Frame: " << currentRenderFrame << " start frame " << startFrame << " video frame (+1) " << videoFrameToRender << " video reports time " << timeToSetTimeline << " timeline difference " << (timeToSetTimeline - timeline.getCurrentTime()) << " frame " << timeline.getCurrentFrame();
     
     //save the image to file and update to the next frame
     ofImage saveImage;
@@ -192,7 +189,7 @@ void ofApp::renderCurrentFrame(){
     if(currentRenderFrame > timeline.getOutFrame()){
         rendering = false;
         timeline.enable();
-		timeline.setCurrentFrame(timeline.getInFrame());
+        timeline.setCurrentFrame(timeline.getInFrame());
     }
 }
 

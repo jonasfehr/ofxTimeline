@@ -49,6 +49,5 @@ class ofApp : public ofBaseApp{
     ofRectangle contentRectangle; //matched to video size
     ofRectangle outputRectangle;
     ofRectangle loadVideoButton;
-    ofRectangle renderButton;
-    
+    ofRectangle renderButton;  
 };
