@@ -77,4 +77,6 @@ linuxarmv7l:
 	#ADDON_INCLUDES_EXCLUDE = libs/ofOpenALSoundPlayer_TimelineAdditions/%
 	
 osx:
+	ADDON_FRAMEWORKS = OpenAL
+
 vs:
