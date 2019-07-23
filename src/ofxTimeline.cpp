@@ -1771,6 +1771,17 @@ ofxTLLFO* ofxTimeline::addLFO(string trackName, string xmlFileName, ofRange valu
 	return newLFO;
 }
 
+ofxTLCurves* ofxTimeline::addFloatParameter(ofParameter<float> & param){
+    ofxTLParameterCurves* newCurves = new ofxTLParameterCurves(&param);
+    newCurves->useBinarySave = curvesUseBinary;
+    newCurves->setCreatedByTimeline(true);
+    newCurves->setValueRange(ofRange(newCurves->parameter->getMin(), newCurves->parameter->getMax()), newCurves->parameter->get());
+    newCurves->setXMLFileName(nameToXMLName(newCurves->parameter->getName()));
+    addTrack(confirmedUniqueName(newCurves->parameter->getName()), newCurves);
+    return newCurves;
+}
+
+
 ofxTLCurves* ofxTimeline::addCurves(string trackName, ofRange valueRange, float defaultValue){
     string uniqueName = confirmedUniqueName(trackName);
     return addCurves(uniqueName, nameToXMLName(uniqueName), valueRange, defaultValue);

@@ -61,6 +61,7 @@
 #include "ofxTLTicker.h"
 #include "ofxTLInOut.h"
 #include "ofxTLCurves.h"
+#include "ofxTLParameterCurves.h"
 #include "ofxTLBangs.h"
 #include "ofxTLFlags.h"
 #include "ofxTLSwitches.h"
@@ -340,6 +341,8 @@ class ofxTimeline : ofThread {
 	ofxTLPage* getPage(string pageName);
 	
 	//adding tracks always adds to the current page
+    ofxTLCurves* addFloatParameter(ofParameter<float> & param);
+
     ofxTLCurves* addCurves(string name, ofRange valueRange = ofRange(0,1.0), float defaultValue = 0);
 	ofxTLCurves* addCurves(string name, string xmlFileName, ofRange valueRange = ofRange(0,1.0), float defaultValue = 0);
 	float getValue(string name);
