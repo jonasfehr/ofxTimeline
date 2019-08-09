@@ -99,6 +99,9 @@ class ofxTLPage {
 	void loadTracksFromFolder(string folderPath);
     void saveTracksToFolder(string folderPath);
 	
+    void serialize(ofJson & js);
+    void deserialize(ofJson & js);
+    
 	//this will swap out the xml file names that have been set to default based on the timeline name
 	void timelineChangedName(string newName, string oldName);
 	

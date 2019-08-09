@@ -177,6 +177,13 @@ class ofxTLKeyframes : public ofxTLTrack
 	virtual void restoreKeyframe(ofxTLKeyframe* key, ofxXmlSettings& xmlStore){};
     virtual void storeKeyframe(ofxTLKeyframe* key, ofxXmlSettings& xmlStore){};
 
+    
+    virtual void serialize(ofJson & js);
+    virtual void deserialize(ofJson & js);
+    virtual void serializeKeyFrame(ofxTLKeyframe* key, ofJson & js){};
+    virtual void deserializeKeyFrame(ofxTLKeyframe* key, ofJson & js){};
+
+    
     virtual void selectedKeySecondaryClick(ofMouseEventArgs& args){};
 
 

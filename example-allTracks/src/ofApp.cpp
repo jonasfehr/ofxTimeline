@@ -7,7 +7,7 @@ void ofApp::setup(){
     ofSetVerticalSync(true);
 	ofEnableSmoothing();
 
-    ofxTimeline::removeCocoaMenusFromGlut("AllTracksExample");
+    //ofxTimeline::removeCocoaMenusFromGlut("AllTracksExample");
 	timeline.setup();
 
 	timeline.addVideoTrack("fingers", "fingers.mov");

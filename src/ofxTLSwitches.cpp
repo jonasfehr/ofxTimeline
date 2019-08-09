@@ -618,6 +618,33 @@ void ofxTLSwitches::storeKeyframe(ofxTLKeyframe* key, ofxXmlSettings& xmlStore){
 	xmlStore.addValue("max", timeline->getTimecode().timecodeForMillis(switchKey->timeRange.max));
 }
 
+void ofxTLSwitches::serializeKeyFrame(ofxTLKeyframe* key, ofJson & js){
+    ofxTLSwitch* switchKey = (ofxTLSwitch* )key;
+    js["switchName"] = switchKey->textField.text;
+    switchKey->time = switchKey->timeRange.min;
+    js["max"] = timeline->getTimecode().timecodeForMillis(switchKey->timeRange.max);
+}
+void ofxTLSwitches::deserializeKeyFrame(ofxTLKeyframe* key, ofJson & js){
+    //pull the saved time into min, and our custom max value
+    ofxTLSwitch* switchKey = (ofxTLSwitch*)key;
+    switchKey->textField.text = js["switchName"];
+    
+    switchKey->timeRange.min = switchKey->time;
+    //
+    string timecode = js["max"];
+    if(timecode.find(":") == string::npos){
+        switchKey->timeRange.max = ofToFloat(timecode) * timeline->getDurationInMilliseconds(); //Legacy max of 0-1
+    }
+    else{
+        switchKey->timeRange.max = timeline->getTimecode().millisForTimecode(timecode);
+    }
+    //this is so freshly restored keys won't have ends selected but click keys will
+    switchKey->startSelected = switchKey->endSelected = false;
+    
+    //a bit of a hack, but if
+    placingSwitch = NULL;
+}
+
 void ofxTLSwitches::willDeleteKeyframe(ofxTLKeyframe* keyframe){
 	ofxTLSwitch* switchKey = (ofxTLSwitch* )keyframe;
 	if(switchKey->textField.isEditing()){

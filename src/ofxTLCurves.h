@@ -109,6 +109,8 @@ class ofxTLCurves : public ofxTLKeyframes {
     virtual ofxTLKeyframe* newKeyframe();
     virtual void restoreKeyframe(ofxTLKeyframe* key, ofxXmlSettings& xmlStore);
 	virtual void storeKeyframe(ofxTLKeyframe* key, ofxXmlSettings& xmlStore);
+    virtual void serializeKeyFrame(ofxTLKeyframe* key, ofJson & js);
+    virtual void deserializeKeyFrame(ofxTLKeyframe* key, ofJson & js);
 
     virtual void selectedKeySecondaryClick(ofMouseEventArgs& args);
 	virtual float interpolateValueForKeys(ofxTLKeyframe* start,ofxTLKeyframe* end, unsigned long long sampleTime);

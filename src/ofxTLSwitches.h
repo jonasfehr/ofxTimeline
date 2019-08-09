@@ -87,6 +87,10 @@ class ofxTLSwitches : public ofxTLKeyframes {
     virtual ofxTLKeyframe* newKeyframe();
     virtual void restoreKeyframe(ofxTLKeyframe* key, ofxXmlSettings& xmlStore);
 	virtual void storeKeyframe(ofxTLKeyframe* key, ofxXmlSettings& xmlStore);
+    
+    virtual void serializeKeyFrame(ofxTLKeyframe* key, ofJson & js);
+    virtual void deserializeKeyFrame(ofxTLKeyframe* key, ofJson & js);
+    
 	virtual ofxTLKeyframe* keyframeAtScreenpoint(ofVec2f p);
     virtual void updateEdgeDragOffsets(long clickMillis);
 	virtual int getSelectedItemCount();

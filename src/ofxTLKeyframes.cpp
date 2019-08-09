@@ -327,6 +327,7 @@ void ofxTLKeyframes::save(){
 	}
 }
 
+
 string ofxTLKeyframes::getXMLStringForKeyframes(vector<ofxTLKeyframe*>& keys){
 //	return "";
 	ofxXmlSettings savedkeyframes;
@@ -930,4 +931,29 @@ void ofxTLKeyframes::simplifySelectedKeyframes( float tolerance ){
            i++;
         }
     }
+}
+
+
+
+void ofxTLKeyframes::serialize(ofJson & js){
+    ofJson & json = js["keyframes"];
+    for(int i = 0; i < keyframes.size(); i++){
+        string keyName = "key_"+ofToString(i);
+        serializeKeyFrame(keyframes[i], json[keyName]);
+        json[keyName]["time"] = ofxTimecode::timecodeForMillis(keyframes[i]->time);
+        json[keyName]["value"] = keyframes[i]->value;
+    }
+}
+
+void ofxTLKeyframes::deserialize(ofJson & js){
+    keyframes.clear();
+    for(auto & keyframeJs : js["keyframes"]){
+        ofxTLKeyframe* key = newKeyframe();
+        string timecode = keyframeJs["time"];
+        key->time = key->previousTime = timeline->getTimecode().millisForTimecode(timecode);
+        key->value = keyframeJs["value"];
+        deserializeKeyFrame(key, keyframeJs);
+        keyframes.push_back( key );
+    }
+    sort(keyframes.begin(), keyframes.end(), keyframesort);
 }

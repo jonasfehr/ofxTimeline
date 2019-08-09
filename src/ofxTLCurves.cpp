@@ -251,6 +251,17 @@ void ofxTLCurves::storeKeyframe(ofxTLKeyframe* key, ofxXmlSettings& xmlStore){
     xmlStore.addValue("easetype", tweenKey->easeType->id);
 }
 
+void ofxTLCurves::serializeKeyFrame(ofxTLKeyframe* key, ofJson & js){
+    ofxTLTweenKeyframe* tweenKey =  (ofxTLTweenKeyframe*)key;
+    js["easefunc"] = tweenKey->easeFunc->id;
+    js["easetype"] = tweenKey->easeType->id;
+}
+void ofxTLCurves::deserializeKeyFrame(ofxTLKeyframe* key, ofJson & js){
+    ofxTLTweenKeyframe* tweenKey =  (ofxTLTweenKeyframe*)key;
+    tweenKey->easeFunc = easingFunctions[ofClamp(js["easefunc"].get<int>(), 0, easingFunctions.size()-1)];
+    tweenKey->easeType = easingTypes[ofClamp(js["easetype"].get<int>(), 0, easingTypes.size()-1)];
+}
+
 void ofxTLCurves::initializeEasings(){
 
 	//FUNCTIONS ----

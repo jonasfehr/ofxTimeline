@@ -190,59 +190,78 @@ void ofxTLTicker::refreshTickMarks(){
     unsigned long long endMillis = zoomBounds.max * timeline->getDurationInMilliseconds();
     unsigned long long durationInview = endMillis-startMillis;
     float millisPerPixel = durationInview / bounds.width;
-	
+    millisPerPixel *= 10;
 	//expand to days
 	bool showMillis;
-	bool showSeconds;
+    bool showSeconds;
+    bool showTenSeconds;
 	bool showMinutes;
 	int step = 4;
 	//find the scale of time being shown
 	if(millisPerPixel > 1000*60 * step){ //each pixel is more than a minute
 		showMillis = false;
 		showSeconds = false;
+        showTenSeconds = false;
 		showMinutes = false;
 	}
-	else if(millisPerPixel > 1000 * step){ //each pixel is more than a second
+	else if(millisPerPixel > 10000 * step){ //each pixel is more than ten seconds
 		showMillis = false;
 		showSeconds = false;
+        showTenSeconds = false;
 		showMinutes = true;
 	}
+    else if(millisPerPixel > 1000 * step){ //each pixel is more than a second
+        showMillis = false;
+        showSeconds = false;
+        showTenSeconds = true;
+        showMinutes = true;
+    }
 	else if(millisPerPixel > step){ //each pixel is more than a millisecond
 		showMillis = false;
 		showSeconds = true;
+        showTenSeconds = true;
 		showMinutes = true;
 	}
 	else{ //each pixel is less than a millsecond
 		showMillis = true;
 		showSeconds = true;
+        showTenSeconds = true;
 		showMinutes = true;
 	}
 	
 	unsigned long long lastMillis = screenXToMillis(bounds.x);
-	int lastSecond = lastMillis/1000;
+    int lastSecond = lastMillis/1000;
+    int lastTenSecond = lastSecond/10;
 	int lastMinute = lastSecond/60;
 	int lastHour = lastMinute/60;
 	for(int i = bounds.getMinX()+step; i < bounds.getMaxX(); i+=step){
 		int height = 0;
 		unsigned long long currentMillis = screenXToMillis(i);
-		int currentSecond = currentMillis/1000;
+        int currentSecond = currentMillis/1000;
+        int currentTenSecond = currentSecond/10;
 		int currentMinute = currentSecond/60;
 		int currentHour = currentMinute/60;
 		float x;
 		if(showMillis && currentMillis > lastMillis){
-			height = bounds.height*.25;
+			height = bounds.height*.2;
 			lastMillis = currentMillis;
 			x = millisToScreenX(currentMillis);
 		}
 
 		if(showSeconds && currentSecond > lastSecond){
-			height = bounds.height*.5;
+			height = bounds.height*.4;
 			lastSecond = currentSecond;
 			x = millisToScreenX(lastSecond*1000);
 		}
+        
+        if(showTenSeconds && currentTenSecond > lastTenSecond){
+            height = bounds.height*.6;
+            lastTenSecond = currentTenSecond;
+            x = millisToScreenX(lastTenSecond*10000);
+        }
 				
 		if(showMinutes && currentMinute > lastMinute){
-			height = bounds.height*.75;
+			height = bounds.height*.8;
 			lastMinute = currentMinute;
 			x = millisToScreenX(lastMinute*1000*60);
 		}

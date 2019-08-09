@@ -61,7 +61,7 @@
 #include "ofxTLTicker.h"
 #include "ofxTLInOut.h"
 #include "ofxTLCurves.h"
-#include "ofxTLParameterCurves.h"
+#include "ofxTLParameterInput.h"
 #include "ofxTLBangs.h"
 #include "ofxTLFlags.h"
 #include "ofxTLSwitches.h"
@@ -156,6 +156,9 @@ class ofxTimeline : ofThread {
     //really useful for setting up 'project' directories
     void loadTracksFromFolder(string folderPath);
     void saveTracksToFolder(string folderPath);
+    
+//    void serialize(ofJson & js);
+//    void deserialize(ofJson & js);
 
     void setDefaultFontPath(string fontPath);
     
@@ -252,6 +255,7 @@ class ofxTimeline : ofThread {
 	long getOutTimeInMillis();
     string getOutPointTimecode();
 
+    virtual void setWindow(ofRectangle window);
 	virtual void setOffset(ofVec2f offset);
     virtual void setLockWidthToWindow(bool lockWidth);
     virtual bool getLockWidthToWindow();
@@ -341,7 +345,13 @@ class ofxTimeline : ofThread {
 	ofxTLPage* getPage(string pageName);
 	
 	//adding tracks always adds to the current page
-    ofxTLCurves* addFloatParameter(ofParameter<float> & param);
+    void addParameterGroup(ofParameterGroup & paramGroup, string nameAddon = "");
+
+    ofxTLCurves* addParameterFloat(ofParameter<float> & param, string nameAddon = "");
+    ofxTLCurves* addParameterInt(ofParameter<int> & param, string nameAddon = "");
+    ofxTLSwitches* addParameterBool(ofParameter<bool> & param, string nameAddon = "");
+    
+    bool checkTrackAllreadyExists(string name);
 
     ofxTLCurves* addCurves(string name, ofRange valueRange = ofRange(0,1.0), float defaultValue = 0);
 	ofxTLCurves* addCurves(string name, string xmlFileName, ofRange valueRange = ofRange(0,1.0), float defaultValue = 0);

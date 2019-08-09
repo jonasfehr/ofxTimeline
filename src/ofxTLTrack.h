@@ -154,6 +154,9 @@ class ofxTLTrack
     virtual void save(){}
     virtual void load(){}
     virtual void clear(){}
+    
+    virtual void serialize(ofJson & js){}
+    virtual void deserialize(ofJson & js){}
 
 	//add any points (in screenspace x) that should be snapped to
     virtual void getSnappingPoints(std::set<unsigned long long>& points){}

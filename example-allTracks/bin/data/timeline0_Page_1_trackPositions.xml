@@ -2,49 +2,97 @@
     <element name="audio">
         <x>0.000000000</x>
         <y>137.000000000</y>
-        <width>1138.000000000</width>
+        <width>1024.000000000</width>
         <height>94.000000000</height>
     </element>
     <element name="bangs">
         <x>0.000000000</x>
-        <y>226.000000000</y>
-        <width>850.000000000</width>
+        <y>344.000000000</y>
+        <width>1024.000000000</width>
         <height>43.000000000</height>
     </element>
     <element name="colors">
         <x>0.000000000</x>
-        <y>364.000000000</y>
-        <width>850.000000000</width>
+        <y>482.000000000</y>
+        <width>1024.000000000</width>
         <height>47.000000000</height>
     </element>
     <element name="curves">
         <x>0.000000000</x>
-        <y>137.000000000</y>
-        <width>850.000000000</width>
+        <y>255.000000000</y>
+        <width>1024.000000000</width>
         <height>65.000000000</height>
     </element>
     <element name="fingers">
         <x>0.000000000</x>
         <y>70.000000000</y>
-        <width>850.000000000</width>
+        <width>1024.000000000</width>
         <height>43.000000000</height>
     </element>
     <element name="flags">
         <x>0.000000000</x>
-        <y>293.000000000</y>
-        <width>850.000000000</width>
+        <y>411.000000000</y>
+        <width>1024.000000000</width>
         <height>47.000000000</height>
     </element>
     <element name="lfo">
         <x>0.000000000</x>
-        <y>435.000000000</y>
-        <width>850.000000000</width>
+        <y>553.000000000</y>
+        <width>1024.000000000</width>
         <height>67.000000000</height>
     </element>
     <element name="switches">
         <x>0.000000000</x>
-        <y>526.000000000</y>
-        <width>850.000000000</width>
+        <y>644.000000000</y>
+        <width>1024.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="timelineSettings/audio">
+        <x>0.000000000</x>
+        <y>134.000000000</y>
+        <width>1024.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="timelineSettings/fingers">
+        <x>0.000000000</x>
+        <y>70.000000000</y>
+        <width>1024.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="timelineSettings/timelineSettings/bangs">
+        <x>0.000000000</x>
+        <y>262.000000000</y>
+        <width>1024.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="timelineSettings/timelineSettings/colors">
+        <x>0.000000000</x>
+        <y>390.000000000</y>
+        <width>1024.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="timelineSettings/timelineSettings/curves">
+        <x>0.000000000</x>
+        <y>198.000000000</y>
+        <width>1024.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="timelineSettings/timelineSettings/flags">
+        <x>0.000000000</x>
+        <y>326.000000000</y>
+        <width>1024.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="timelineSettings/timelineSettings/lfo">
+        <x>0.000000000</x>
+        <y>454.000000000</y>
+        <width>1024.000000000</width>
+        <height>40.000000000</height>
+    </element>
+    <element name="timelineSettings/timelineSettings/switches">
+        <x>0.000000000</x>
+        <y>518.000000000</y>
+        <width>1024.000000000</width>
         <height>40.000000000</height>
     </element>
 </positions>

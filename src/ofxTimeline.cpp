@@ -277,6 +277,22 @@ void ofxTimeline::saveTracksToFolder(string folderPath){
 	setWorkingFolder(folderPath);
 }
 
+//void ofxTimeline::serialize(ofJson & js){
+//    int i = 0;
+//    for(auto & page : pages){
+//        js["Pages"][ofToString(i)]["name"] = page->getName();
+//    }
+//}
+//void ofxTimeline::deserialize(ofJson & js){
+//    pages.clear();
+//    for(auto & jsPage : js["Pages"]){
+//        string name = jsPage["name"];
+//        if(!hasPage(name)) addPage(name);
+//        ofxTLPage * page = getPage(name);
+//    }
+//}
+
+
 
 #pragma mark CONFIGURATION
 void ofxTimeline::setDefaultFontPath(string newFontPath){
@@ -941,6 +957,13 @@ string ofxTimeline::getDurationInTimecode(){
 void ofxTimeline::setAutosave(bool doAutosave){
 	autosave = doAutosave;
 }
+
+void ofxTimeline::setWindow(ofRectangle window){
+    setOffset(window.getTopLeft());
+    setWidth(window.getWidth());
+    setHeight(window.getHeight());
+}
+
 
 void ofxTimeline::setOffset(ofVec2f newOffset){
     if(offset != newOffset){
@@ -1771,15 +1794,52 @@ ofxTLLFO* ofxTimeline::addLFO(string trackName, string xmlFileName, ofRange valu
 	return newLFO;
 }
 
-ofxTLCurves* ofxTimeline::addFloatParameter(ofParameter<float> & param){
-    ofxTLParameterCurves* newCurves = new ofxTLParameterCurves(&param);
+void ofxTimeline::addParameterGroup(ofParameterGroup & paramGroup, string nameAddon){
+    for(int i = 0; i < paramGroup.size(); i++){
+        string type = paramGroup[i].type();
+        if(type == "16ofParameterGroup") addParameterGroup(paramGroup.getGroup(i), nameAddon);
+        if(type == "11ofParameterIfE") addParameterFloat(paramGroup.getFloat(i), nameAddon);
+        if(type == "11ofParameterIiE") addParameterInt(paramGroup.getInt(i), nameAddon);
+        if(type == "11ofParameterIbE") addParameterBool(paramGroup.getBool(i), nameAddon);
+    }
+}
+
+
+ofxTLCurves* ofxTimeline::addParameterFloat(ofParameter<float> & param, string nameAddon){
+    ofxTLParameterFloat* newCurves = new ofxTLParameterFloat(&param);
     newCurves->useBinarySave = curvesUseBinary;
     newCurves->setCreatedByTimeline(true);
     newCurves->setValueRange(ofRange(newCurves->parameter->getMin(), newCurves->parameter->getMax()), newCurves->parameter->get());
-    newCurves->setXMLFileName(nameToXMLName(newCurves->parameter->getName()));
-    addTrack(confirmedUniqueName(newCurves->parameter->getName()), newCurves);
+    newCurves->setXMLFileName(nameToXMLName(nameAddon+newCurves->parameter->getName()));
+    addTrack(confirmedUniqueName(nameAddon+newCurves->parameter->getName()), newCurves);
     return newCurves;
 }
+
+ofxTLCurves* ofxTimeline::addParameterInt(ofParameter<int> & param, string nameAddon){
+    ofxTLParameterInt* newCurves = new ofxTLParameterInt(&param);
+    newCurves->useBinarySave = curvesUseBinary;
+    newCurves->setCreatedByTimeline(true);
+    newCurves->setValueRange(ofRange(newCurves->parameter->getMin(), newCurves->parameter->getMax()), newCurves->parameter->get());
+    newCurves->setXMLFileName(nameAddon+nameToXMLName(newCurves->parameter->getName()));
+    addTrack(confirmedUniqueName(nameAddon+newCurves->parameter->getName()), newCurves);
+    return newCurves;
+}
+
+ofxTLSwitches* ofxTimeline::addParameterBool(ofParameter<bool> & param, string nameAddon){
+    ofxTLParameterBool* newSwitches = new ofxTLParameterBool(&param);
+    newSwitches->setCreatedByTimeline(true);
+    newSwitches->setXMLFileName(nameAddon+nameToXMLName(newSwitches->parameter->getName()));
+    addTrack(confirmedUniqueName(nameAddon+newSwitches->parameter->getName()), newSwitches);
+    return newSwitches;
+}
+
+bool ofxTimeline::checkTrackAllreadyExists(string name){
+    for( auto & track : currentPage->getTracks()){
+        if( track->getName() == name ) return true;
+    }
+    return false;
+}
+
 
 
 ofxTLCurves* ofxTimeline::addCurves(string trackName, ofRange valueRange, float defaultValue){
