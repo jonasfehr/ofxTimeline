@@ -19,7 +19,13 @@ public:
     
     ~ofxTLParameterFloat();
     
+    void enable();
+    void disable();
+    
+    void addKey(float & v);
+    
     void update(ofEventArgs & args);
+    void updateScrub(ofxTLPlaybackEventArgs & args);
     
     ofParameter<float> *parameter;
 };
@@ -30,7 +36,13 @@ public:
     
     ~ofxTLParameterInt();
     
+    void enable();
+    void disable();
+    
+    void addKey(int & v);
+    
     void update(ofEventArgs & args);
+    void updateScrub(ofxTLPlaybackEventArgs & args);
     
     ofParameter<int> *parameter;
 };
@@ -41,7 +53,13 @@ public:
     
     ~ofxTLParameterBool();
     
+    void enable();
+    void disable();
+    
+    void addKey(bool & v);
+    
     void update(ofEventArgs & args);
+    void updateScrub(ofxTLPlaybackEventArgs & args);
     
     ofParameter<bool> *parameter;
 };
