@@ -18,14 +18,14 @@ ofxTLParameterFloat::~ofxTLParameterFloat(){
 
 void ofxTLParameterFloat::enable(){
     ofxTLTrack::enable();
-    parameter->newListener(this, &ofxTLParameterFloat::addKey);
+//    parameter->newListener(this, &ofxTLParameterFloat::addKey);
     ofAddListener(ofEvents().update, this, &ofxTLParameterFloat::update);
     ofAddListener(events().playheadScrubbed, this, &ofxTLParameterFloat::updateScrub);
 }
 
 void ofxTLParameterFloat::disable(){
     ofxTLTrack::enable();
-    parameter->removeListener(this, &ofxTLParameterFloat::addKey);
+//    parameter->removeListener(this, &ofxTLParameterFloat::addKey);
     ofRemoveListener(ofEvents().update, this, &ofxTLParameterFloat::update);
     ofRemoveListener(events().playheadScrubbed, this, &ofxTLParameterFloat::updateScrub);
 }
@@ -56,14 +56,14 @@ ofxTLParameterInt::~ofxTLParameterInt(){
 
 void ofxTLParameterInt::enable(){
     ofxTLTrack::enable();
-    parameter->addListener(this, &ofxTLParameterInt::addKey);
+//    parameter->addListener(this, &ofxTLParameterInt::addKey);
     ofAddListener(ofEvents().update, this, &ofxTLParameterInt::update);
     ofAddListener(events().playheadScrubbed, this, &ofxTLParameterInt::updateScrub);
 }
 
 void ofxTLParameterInt::disable(){
     ofxTLTrack::enable();
-    parameter->removeListener(this, &ofxTLParameterInt::addKey);
+//    parameter->removeListener(this, &ofxTLParameterInt::addKey);
     ofRemoveListener(ofEvents().update, this, &ofxTLParameterInt::update);
     ofRemoveListener(events().playheadScrubbed, this, &ofxTLParameterInt::updateScrub);
 }
@@ -93,14 +93,14 @@ ofxTLParameterBool::~ofxTLParameterBool(){
 
 void ofxTLParameterBool::enable(){
     ofxTLTrack::enable();
-    parameter->addListener(this, &ofxTLParameterBool::addKey);
+//    parameter->addListener(this, &ofxTLParameterBool::addKey);
     ofAddListener(ofEvents().update, this, &ofxTLParameterBool::update);
     ofAddListener(events().playheadScrubbed, this, &ofxTLParameterBool::updateScrub);
 }
 
 void ofxTLParameterBool::disable(){
     ofxTLTrack::enable();
-    parameter->removeListener(this, &ofxTLParameterBool::addKey);
+//    parameter->removeListener(this, &ofxTLParameterBool::addKey);
     ofRemoveListener(ofEvents().update, this, &ofxTLParameterBool::update);
     ofRemoveListener(events().playheadScrubbed, this, &ofxTLParameterBool::updateScrub);
 }
@@ -120,10 +120,8 @@ void ofxTLParameterBool::addKey(bool & v){
             
             //a bit of a hack, but if
             placingSwitch = NULL;
-//            //for just placing a switch we'll be able to decide the end position
-//            placingSwitch = switchKey;
-            
-            getKeyframes().push_back(switchKey);
+        
+//            getKeyframes().push_back(switchKey);
         }
     }
 }

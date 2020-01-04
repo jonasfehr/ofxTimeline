@@ -236,7 +236,6 @@ string ofxTimeline::getName(){
 
 void ofxTimeline::setWorkingFolder(string folderPath){
 	workingFolder = ofFilePath::addTrailingSlash(folderPath);
-
 	if(isSetup){
 		setupStandardElements();
 	}
@@ -247,6 +246,7 @@ string ofxTimeline::getWorkingFolder(){
 }
 
 void ofxTimeline::loadTracksFromFolder(string folderPath){
+    folderPath = ofFilePath::addTrailingSlash(folderPath);
     for(int i = 0; i < pages.size(); i++){
         pages[i]->loadTracksFromFolder(folderPath);
     }
@@ -1661,6 +1661,9 @@ void ofxTimeline::removePage(ofxTLPage *page) {
 	if (getCurrentPageName() == page->getName()) {
 		setCurrentPage(0);
 	}
+    
+    bool wasOnThread = isOnThread;
+    if(isOnThread) removeFromThread();
 
 	tabs->removePage(page->getName());
 
@@ -1680,9 +1683,12 @@ void ofxTimeline::removePage(ofxTLPage *page) {
 	}
 
 	delete page;
+    
+    if(wasOnThread) moveToThread();
 
 	ofEventArgs args;
 	ofNotifyEvent(events().viewWasResized, args);
+    
 }
 
 int ofxTimeline::getTotalSelectedItems(){

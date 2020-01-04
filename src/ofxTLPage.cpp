@@ -86,6 +86,7 @@ void ofxTLPage::setup(){
 void ofxTLPage::loadTracksFromFolder(string folderPath){
     for(int i = 0; i < headers.size(); i++){
 		string filename = folderPath + tracks[headers[i]->name]->getXMLFileName();
+        cout << "loadName: " << filename << endl;
         tracks[headers[i]->name]->setXMLFileName(filename);
         tracks[headers[i]->name]->load();
     }
@@ -95,6 +96,8 @@ void ofxTLPage::loadTracksFromFolder(string folderPath){
 void ofxTLPage::saveTracksToFolder(string folderPath){
     for(int i = 0; i < headers.size(); i++){
 		string filename = folderPath + tracks[headers[i]->name]->getXMLFileName();
+        cout << "saveName: " << filename << endl;
+
         tracks[headers[i]->name]->setXMLFileName(filename);
 		tracks[headers[i]->name]->save();
     }

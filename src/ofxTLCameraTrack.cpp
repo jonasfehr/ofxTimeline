@@ -435,13 +435,13 @@ void ofxTLCameraTrack::setCameraFrameToTime(ofxTLCameraFrame* target, unsigned l
 	}
 }
 
-void ofxTLCameraTrack::moveCameraToPosition(ofxTLCameraFrame* target){
-	const glm::vec3 p = glm::lerp(camera->getPosition(), target->position, dampening);
-	camera->setPosition(p); 
-	
-	const glm::quat q = glm::slerp(camera->getOrientationQuat(), target->orientation, dampening);
-	camera->setOrientation(q);
-}
+//void ofxTLCameraTrack::moveCameraToPosition(ofxTLCameraFrame* target){
+//	const glm::vec3 p = glm::lerp(camera->getPosition(), target->position, dampening);
+//	camera->setPosition(p); 
+//	
+//	const glm::quat q = glm::slerp(camera->getOrientationQuat(), target->orientation, dampening);
+//	camera->setOrientation(q);
+//}
 
 void ofxTLCameraTrack::setDampening(float damp){
 	dampening = damp;

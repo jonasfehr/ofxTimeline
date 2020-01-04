@@ -9,6 +9,9 @@ void ofApp::setup(){
 
     //ofxTimeline::removeCocoaMenusFromGlut("AllTracksExample");
 	timeline.setup();
+    
+//    timeline.setWorkingFolder("new");
+    timeline.setAutosave(false);
 
 	timeline.addVideoTrack("fingers", "fingers.mov");
 
@@ -59,7 +62,13 @@ void ofApp::draw(){
 
 //--------------------------------------------------------------
 void ofApp::keyPressed(int key){
+    if(key == 's'){
+        timeline.saveTracksToFolder(("test"));
+    }
     
+    if(key == 'l'){
+        timeline.loadTracksFromFolder(("test"));
+    }
 }
 
 //--------------------------------------------------------------
