@@ -98,12 +98,12 @@ void ofxTLCameraTrack::draw(){
 		if(!isKeyframeIsInBounds(keyframes[i])){
 			continue;
 		}
-		
+
 		ofxTLCameraFrame* sample =(ofxTLCameraFrame*)keyframes[i];
 		float screenX = millisToScreenX(keyframes[i]->time);
 		float screenY = bounds.y;
 		ofPoint screenPoint = ofPoint(screenX,screenY);
-		
+
 		//        if(keyframes[i] == selectedKeyframe){
 		if(isKeyframeSelected(sample)){
 			if(sample->easeInSelected){
@@ -139,14 +139,14 @@ void ofxTLCameraTrack::draw(){
 }
 
 void ofxTLCameraTrack::draw3d(){
-	
+
 	if(lockCameraToTrack) return;
-	
+
 	ofxTLCameraFrame interFrame;
 	ofNode n;
 	ofPushStyle();
 
-	
+
 	for(int i = 0; i  < keyframes.size(); i++){
 		ofxTLCameraFrame* frame = (ofxTLCameraFrame*)keyframes[i];
 		n.setPosition(frame->position);
@@ -155,7 +155,7 @@ void ofxTLCameraTrack::draw3d(){
 		ofPushStyle();
 		ofPopStyle();
 	}
-	
+
 	unsigned long long startMillis = screenXToMillis(bounds.x);
 	unsigned long long endMillis = screenXToMillis(bounds.getMaxX());
 	unsigned long long step = (endMillis - startMillis)/100;
@@ -174,7 +174,7 @@ void ofxTLCameraTrack::draw3d(){
 	setCameraFrameToTime(&interFrame, currentTrackTime());
 	n.setPosition(interFrame.position);
 	n.setOrientation(interFrame.orientation);
-	
+
 	ofSetLineWidth(3);
 	ofSetColor(0,0,255);
 	ofDrawLine(n.getPosition(), n.getPosition() + n.getLookAtDir()*25);
@@ -182,11 +182,11 @@ void ofxTLCameraTrack::draw3d(){
 	ofDrawLine(n.getPosition(), n.getPosition() + n.getUpDir()*25);
 	ofSetColor(255,0,0);
 	ofDrawLine(n.getPosition(), n.getPosition() + n.getSideDir()*25);
-	
+
 	ofNoFill();
 	ofSetColor(255);
 	ofDrawBox(n.getPosition(), 4);
-	
+
 	ofPopStyle();
 }
 
@@ -293,7 +293,7 @@ void ofxTLCameraTrack::mouseReleased(ofMouseEventArgs& args, long millis){
 //keys pressed events, and nuding from arrow keys with normalized nudge amount 0 - 1.0
 void ofxTLCameraTrack::keyPressed(ofKeyEventArgs& args){
 	ofxTLKeyframes::keyPressed(args);
-	
+
 	bool modified = false;
 	for(int i = 0; i < selectedKeyframes.size(); i++){
 		ofxTLCameraFrame* key = (ofxTLCameraFrame*)selectedKeyframes[i];
@@ -316,11 +316,11 @@ void ofxTLCameraTrack::keyPressed(ofKeyEventArgs& args){
 			modified = true;
 		}
 	}
-	
+
 	if(modified){
 		timeline->flagTrackModified(this);
 	}
-	
+
 }
 
 void ofxTLCameraTrack::regionSelected(ofLongRange timeRange, ofRange valueRange){
@@ -365,12 +365,12 @@ void ofxTLCameraTrack::storeKeyframe(ofxTLKeyframe* key, ofxXmlSettings& xmlStor
 	xmlStore.addValue("px", cameraFrame->position.x);
 	xmlStore.addValue("py", cameraFrame->position.y);
 	xmlStore.addValue("pz", cameraFrame->position.z);
-	
+
 	xmlStore.addValue("ow", cameraFrame->orientation.w);
 	xmlStore.addValue("ox", cameraFrame->orientation.x);
 	xmlStore.addValue("oy", cameraFrame->orientation.y);
 	xmlStore.addValue("oz", cameraFrame->orientation.z);
-	
+
 	xmlStore.addValue("easein",  (int)cameraFrame->easeIn);
 	xmlStore.addValue("easeout", (int)cameraFrame->easeOut);
 }
@@ -392,11 +392,11 @@ void ofxTLCameraTrack::moveCameraToTime(unsigned long long millis){
 		ofLogError(__FUNCTION__) << "Can't modify a null camera!";
 		return;
 	}
-	
+
 	if(keyframes.size() == 0){
 		return;
 	}
-	
+
 	if(keyframes.size() == 1 || millis <= keyframes[0]->time){
 		ofxTLCameraFrame* firstFrame = (ofxTLCameraFrame*)keyframes[0];
 //		camera->setPosition(firstFrame->position);
@@ -405,7 +405,7 @@ void ofxTLCameraTrack::moveCameraToTime(unsigned long long millis){
 
 		return;
 	}
-	
+
 	if (millis >= keyframes[keyframes.size()-1]->time) {
 		ofxTLCameraFrame* lastFrame = (ofxTLCameraFrame*)keyframes[keyframes.size()-1];
 //		camera->setPosition(lastFrame->position);
@@ -413,9 +413,9 @@ void ofxTLCameraTrack::moveCameraToTime(unsigned long long millis){
 		moveCameraToPosition(lastFrame);
 		return;
 	}
-	
+
 	//cout << "Sampling at frame " << frame << " with frames ranging between " << samples[0].frame << " - " << samples[samples.size()-1].frame << endl;
-	
+
 	ofxTLCameraFrame interp;
 	setCameraFrameToTime(&interp, millis);
 	moveCameraToPosition(&interp);
@@ -435,10 +435,12 @@ void ofxTLCameraTrack::setCameraFrameToTime(ofxTLCameraFrame* target, unsigned l
 	}
 }
 
+// !!! I had to uncomment this secion as  i could not get the glm functions to work.
+
 //void ofxTLCameraTrack::moveCameraToPosition(ofxTLCameraFrame* target){
 //	const glm::vec3 p = glm::lerp(camera->getPosition(), target->position, dampening);
-//	camera->setPosition(p); 
-//	
+//	camera->setPosition(p);
+//
 //	const glm::quat q = glm::slerp(camera->getOrientationQuat(), target->orientation, dampening);
 //	camera->setOrientation(q);
 //}
@@ -455,7 +457,7 @@ void ofxTLCameraTrack::jumpToTarget(){
     float curDamp = dampening;
     dampening = 1.0;
     moveCameraToTime(timeline->getCurrentTimeMillis());
-    
+
     dampening = curDamp;
 }
 
@@ -490,9 +492,9 @@ void ofxTLCameraTrack::interpolateBetween(ofxTLCameraFrame* target,
         ofxEasingQuad ease;
         alpha = ofxTween::map(millis, sample1->time, sample2->time, 0, 1.0, false, ease, ofxTween::easeInOut);
     }
-    
+
 	//float alpha = ofMap(millis, sample1->time, sample2->time, 0, 1.0, false);
-    
+
 	target->time = millis;
 	target->position = ofHermiteInterpolate(prev->position,sample1->position,sample2->position,next->position,alpha,0,0);
 	//	interp.position = sample1.position.getInterpolated(sample2.position, alpha);
