@@ -350,7 +350,8 @@ class ofxTimeline : ofThread {
     ofxTLCurves* addParameterFloat(ofParameter<float> & param, string nameAddon = "");
     ofxTLCurves* addParameterInt(ofParameter<int> & param, string nameAddon = "");
     ofxTLSwitches* addParameterBool(ofParameter<bool> & param, string nameAddon = "");
-    
+    ofxTLFlags* addParameterString(ofParameter<string> & param, string nameAddon = "");
+
     bool checkTrackAllreadyExists(string name);
 
     ofxTLCurves* addCurves(string name, ofRange valueRange = ofRange(0,1.0), float defaultValue = 0);

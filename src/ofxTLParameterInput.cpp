@@ -133,3 +133,55 @@ void ofxTLParameterBool::update(ofEventArgs & args){
 void ofxTLParameterBool::updateScrub(ofxTLPlaybackEventArgs & args){
     if(parameter != NULL) parameter->setWithoutEventNotifications(isOn());
 }
+
+
+
+
+ofxTLParameterString::ofxTLParameterString(ofParameter<string> * param){
+    this->parameter = param;
+}
+
+ofxTLParameterString::~ofxTLParameterString(){
+    if(isEnabled()) disable();
+}
+
+void ofxTLParameterString::enable(){
+    ofxTLTrack::enable();
+//    parameter->addListener(this, &ofxTLParameterBool::addKey);
+    ofAddListener(ofEvents().update, this, &ofxTLParameterString::update);
+    ofAddListener(events().playheadScrubbed, this, &ofxTLParameterString::updateScrub);
+//    ofAddListener(events().bangFired, this, &ofxTLParameterString::updateString);
+}
+
+void ofxTLParameterString::disable(){
+    ofxTLTrack::enable();
+//    parameter->removeListener(this, &ofxTLParameterBool::addKey);
+    ofRemoveListener(ofEvents().update, this, &ofxTLParameterString::update);
+    ofRemoveListener(events().playheadScrubbed, this, &ofxTLParameterString::updateScrub);
+//    ofRemoveListener(events().bangFired, this, &ofxTLParameterString::updateString);
+
+}
+
+void ofxTLParameterString::addKey(string & v){
+    if(!getTimeline()->getIsPlaying()){
+//   NOT IMPLEMENTED
+    }
+}
+
+void ofxTLParameterString::update(ofEventArgs & args){
+//    if(timeline->getIsPlaying()) *parameter = isOn();
+}
+
+void ofxTLParameterString::updateScrub(ofxTLPlaybackEventArgs & args){
+//    if(parameter != NULL) parameter->setWithoutEventNotifications(isOn());
+}
+
+void ofxTLParameterString::updateString(ofxTLBangEventArgs & args){
+    if(parameter != NULL) parameter->set(args.flag);
+//    if(parameter != NULL) parameter->setWithoutEventNotifications(args.flag);
+}
+
+void ofxTLParameterString::bangFired(ofxTLKeyframe* key){
+    if(parameter != NULL) parameter->set(((ofxTLFlag*)key)->textField.text);
+    ofxTLFlags::bangFired(key);
+}

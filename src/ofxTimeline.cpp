@@ -1287,6 +1287,7 @@ void ofxTimeline::keyPressed(ofKeyEventArgs& args){
     //cout << "key event " << args.key << " z? " << int('z') << " ctrl? " << ofGetModifierControlPressed() << " " << ofGetModifierShiftPressed() << " short cut? " << ofGetModifierShortcutKeyPressed() << endl;
 
 	if(modalTrack != NULL){
+        cout << args.key << endl;
 		collectStateBuffers();
         modalTrack->keyPressed(args);
 		pushUndoStack();
@@ -1807,6 +1808,8 @@ void ofxTimeline::addParameterGroup(ofParameterGroup & paramGroup, string nameAd
         if(type == "11ofParameterIfE") addParameterFloat(paramGroup.getFloat(i), nameAddon);
         if(type == "11ofParameterIiE") addParameterInt(paramGroup.getInt(i), nameAddon);
         if(type == "11ofParameterIbE") addParameterBool(paramGroup.getBool(i), nameAddon);
+        if(type == "11ofParameterINSt3__112basic_stringIcNS0_11char_traitsIcEENS0_9allocatorIcEEEEE") addParameterString(paramGroup.getString(i), nameAddon);
+
     }
 }
 
@@ -1837,6 +1840,14 @@ ofxTLSwitches* ofxTimeline::addParameterBool(ofParameter<bool> & param, string n
     newSwitches->setXMLFileName(nameAddon+nameToXMLName(newSwitches->parameter->getName()));
     addTrack(confirmedUniqueName(nameAddon+newSwitches->parameter->getName()), newSwitches);
     return newSwitches;
+}
+
+ofxTLFlags* ofxTimeline::addParameterString(ofParameter<string> & param, string nameAddon){
+    ofxTLParameterString* newFlags = new ofxTLParameterString(&param);
+    newFlags->setCreatedByTimeline(true);
+    newFlags->setXMLFileName(nameAddon+nameToXMLName(newFlags->parameter->getName()));
+    addTrack(confirmedUniqueName(nameAddon+newFlags->parameter->getName()), newFlags);
+    return newFlags;
 }
 
 bool ofxTimeline::checkTrackAllreadyExists(string name){

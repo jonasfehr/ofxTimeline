@@ -11,6 +11,8 @@
 #include <stdio.h>
 #include "ofxTLCurves.h"
 #include "ofxTLSwitches.h"
+#include "ofxTLFlags.h"
+#include "ofxTLPage.h"
 #include "ofMain.h"
 
 class ofxTLParameterFloat : public ofxTLCurves{
@@ -62,6 +64,26 @@ public:
     void updateScrub(ofxTLPlaybackEventArgs & args);
     
     ofParameter<bool> *parameter;
+};
+
+class ofxTLParameterString : public ofxTLFlags{
+public:
+    ofxTLParameterString(ofParameter<string> * param);
+    
+    ~ofxTLParameterString();
+    
+    void enable();
+    void disable();
+    
+    void addKey(string & v);
+    
+    void update(ofEventArgs & args);
+    void updateScrub(ofxTLPlaybackEventArgs & args);
+    void updateString(ofxTLBangEventArgs & args);
+
+    void bangFired(ofxTLKeyframe* key);
+    
+    ofParameter<string> *parameter;
 };
 
 #endif /* ofxTLParameterInput_hpp */
